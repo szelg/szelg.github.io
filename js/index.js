@@ -3,11 +3,12 @@ $(function(){
 $(".rules").click(function(){
 // $(".rule").css({"display":"block"});
 $(".rule").fadeIn();
-    // alert();
+stoptWolfAnimation();
+
 });
 $("#colse").click(function(){
     $(".rule").fadeOut();
-        // alert();
+    startWolfAnimation();
     });
     
 
@@ -16,6 +17,7 @@ $("#colse").click(function(){
         $(".begin").fadeOut(500);
         star();
         startWolfAnimation();
+        $("h1").text(0);
     });
     // 重新开始
     $(".over>button").click(function(){
@@ -23,6 +25,7 @@ $("#colse").click(function(){
         $(".over").fadeOut(500);
         star();
         startWolfAnimation();
+        $("h1").text(0);
     });
 
 // 开始
@@ -42,7 +45,7 @@ function startWolfAnimation(){
             {left:"209px",top:"297px"}
         ];
 
-
+       
         var $img=$("<img src=''>");
         // // 出现位置
         var posIndex=Math.round(Math.random()*8);        
@@ -59,14 +62,15 @@ function startWolfAnimation(){
         window. b=5;
         timer2=setInterval(function(){            
             $img.attr("src",aa[a]); 
-            a++;
+            
             if(a>b){
                 a=0;
                 $img.remove();
                 clearInterval(timer2);
                 startWolfAnimation();
             }
-        }, 100);
+            a++;
+        }, 150);
         $(".content").append($img);
         gameRules($img);
 }
