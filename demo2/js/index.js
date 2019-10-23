@@ -70,7 +70,7 @@ function startWolfAnimation(){
                 startWolfAnimation();
             }
             a++;
-        }, 150);
+        }, 300);
         $(".content").append($img);
         gameRules($img);
 }
