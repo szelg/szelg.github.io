@@ -57,7 +57,7 @@
 <script>
   // 四个按钮添加事件
 $(document).ready(function(){
-  fn1(this);
+  fn1($("input").eq(0));
   $("input").eq(0).click(function(){
     
    fn1(this);
@@ -81,7 +81,7 @@ function fn1(abc){
    $(abc).siblings().removeClass("but");
     $(abc).addClass("but");
   var myname=$(abc).attr("name");
-  console.log(myname);
+  // console.log(myname);
     $.ajax({
              type: "get",
              url: "09news.php",           
