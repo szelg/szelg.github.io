@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      *{margin: 0;
+      padding: 0;}
+    .info{
+      width: 600px;
+      height: 150px;
+      /* border: 1px solid black; */
+      position: relative;
+      display: block;
+      color: #000;
+    }
+    img{
+      width: 200px;
+      height: 90%;
+      /* border: 1px solid black; */
+    }
+    .info>div{
+      width: 390px;
+      /* height: 100%; */
+      /* border: 1px solid red; */
+      float: right;
+      top: 10px;
+    }
+    .info>div>h2{
+      margin-top: 20px;
+      text-align: left;      
+      line-height: 30px;
+    }
+    .but{
+      background-image:linear-gradient(0deg, #99CC33,#ffffff);
+      border: 1px solid;
+      width: 40px;
+      height: 25px;
+    }
+    
+    </style>
+</head>
+<body>
+    <input class="but" name="top" type="button" value="头条" />
+    <input name="shehui" type="button" value="社会" />
+    <input name="guonei" type="button" value="国内" />
+    <input name="yule" type="button" value="娱乐" />
+    <div class="main">
+        
+    </div>
+    
+
+
+<script src="jquery-1.12.4.js"></script>
+<script>
+  // 四个按钮添加事件
+$(document).ready(function(){
+  fn1(this);
+  $("input").eq(0).click(function(){
+    
+   fn1(this);
+  });   
+  $("input").eq(1).click(function(){
+   fn1(this);
+  });  $("input").eq(2).click(function(){
+   fn1(this);
+  });  $("input").eq(3).click(function(){
+     fn1(this);
+  });
+});
+
+
+
+
+
+//获取相应类型的数据
+function fn1(abc){
+  $(".info").remove();
+   $(abc).siblings().removeClass("but");
+    $(abc).addClass("but");
+  var myname=$(abc).attr("name");
+  console.log(myname);
+    $.ajax({
+             type: "get",
+             url: "09news.php",           
+             data: "type="+myname+"&key=cb6ad53d6670999d9bfa84d6678250c2", 
+             success: function(text){     
+              //  console.log(JSON.parse(text)); 
+               text=JSON.parse(text);  
+               //创建每条        
+                var datanumber=text.result.data.length;
+                for(var i=0;i<datanumber;i++){
+                  fn(text,i);
+                }                
+              },
+             error:function(e){
+                         console.log(e);
+             }
+         });
+}
+
+// 将得到的内容增加到节点
+var title,date,author_name,thumbnail_pic_s,myurl;
+function fn(text,i){  
+   title=text.result.data[i].title;
+  date=text.result.data[i].date;
+  author_name=text.result.data[i].author_name;
+  thumbnail_pic_s=text.result.data[i].thumbnail_pic_s;
+  myurl=text.result.data[i].url;
+
+  var info=$('<a target=blank href="'+myurl+'" class="info"><img src="'+thumbnail_pic_s+'" ><div><h2>'+title+'</h2><span>'+date+author_name+'</span></div></a>');
+  // $("img").attr("src",thumbnail_pic_s);
+  // $("h2").text(title);
+  // $("span").text(date+author_name);
+  
+  $(".main").append(info);
+}
+
+
+
+
+
+
+
+
+
+// $(document).ready(function(){
+//   $("input").click(function(){
+//     $.ajax({
+//              type: "get",
+//              url: "../server/09news.php",           
+//              data: "type=top&key=cb6ad53d6670999d9bfa84d6678250c2", 
+//              success: function(text){                
+//                 var shuju=JSON.parse(text);
+//                  console.log(text);
+//                       },
+//              error:function(e){
+//                          console.log(e);
+//              }
+//          });
+//   });
+   
+// });
+</script>
+
+</body>
+</html>
+
